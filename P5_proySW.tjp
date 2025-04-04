@@ -230,7 +230,6 @@ task WMGame "Web & Mobile Game" {
     task tDep "Cloud Deployment" {
       effort 5d
       allocate dev3
-      depends WMGame.tback.tBEd
     }
     task tDepTest "Cloud Deployment Test" {
       effort 5d
