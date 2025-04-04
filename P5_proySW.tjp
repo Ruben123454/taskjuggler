@@ -223,7 +223,8 @@ task WMGame "Web & Mobile Game" {
   }
 
   task tcDep "Cloud Deployment" {
-    chargest back
+    purge chargeset
+    chargeset back
     responsible dev3
     depends WMGame.tback.tBEd
     task tDep "Cloud Deployment" {
