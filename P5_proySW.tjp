@@ -154,47 +154,6 @@ task WMGame "Web & Mobile Game" {
 
   }
 
-  task ttest "Acceptance tests" {
-    effort 10d
-    allocate boss
-    allocate dev2, dev4
-    actual:effort 20d
-    depends WMGame.twebF
-    depends WMGame.tback
-    depends WMGame.tmFront
-    depends WMGame.tcDep
-    # Inicio de las pruebas de aceptación para que sea, como pronto, el 15 de mayo.
-    start 2025-05-15
-  }
-
-    
-  task deliveries "Milestones" {
-
-    # Some milestones have customer payments associated with them. We
-    # credit these payments to the 'rev' account.
-    purge chargeset
-    chargeset rev
-
-    task start "Project start" {
-      # A task that has no duration is a milestone. It only needs a
-      # start or end criterion. All other tasks depend on this task.
-      # Here we use the built-in macro ${projectstart} to align the
-      # start of the task with the above specified project time frame.
-      start ${projectstart}
-  
-      # At the beginning of this task we receive a payment from the
-      # customer. This is credited to the account associated with this
-      # task when the task starts.
-      charge 13000.0 onstart
-    }
-
-    task done "Ship Product to Customer" {
-      depends WMGame.ttest
-      charge 12000.0 onstart
-    }
-  }
-
-
   task tmFront "Mobile Front End" {
     purge chargeset
     chargeset mFront
@@ -237,6 +196,49 @@ task WMGame "Web & Mobile Game" {
       depends WMGame.tcDep.tDep
     }
   }
+
+  task ttest "Acceptance tests" {
+    effort 10d
+    allocate boss
+    allocate dev2, dev4
+    actual:effort 20d
+    depends WMGame.twebF
+    depends WMGame.tback
+    depends WMGame.tmFront
+    depends WMGame.tcDep
+    # Inicio de las pruebas de aceptación para que sea, como pronto, el 15 de mayo.
+    start 2025-05-15
+  }
+
+    
+  task deliveries "Milestones" {
+
+    # Some milestones have customer payments associated with them. We
+    # credit these payments to the 'rev' account.
+    purge chargeset
+    chargeset rev
+
+    task start "Project start" {
+      # A task that has no duration is a milestone. It only needs a
+      # start or end criterion. All other tasks depend on this task.
+      # Here we use the built-in macro ${projectstart} to align the
+      # start of the task with the above specified project time frame.
+      start ${projectstart}
+  
+      # At the beginning of this task we receive a payment from the
+      # customer. This is credited to the account associated with this
+      # task when the task starts.
+      charge 13000.0 onstart
+    }
+
+    task done "Ship Product to Customer" {
+      depends WMGame.ttest
+      charge 12000.0 onstart
+    }
+  }
+
+
+  
 }
 
 # Now the project has been specified completely. Stopping here would
