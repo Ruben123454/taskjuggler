@@ -58,7 +58,7 @@ resource boss "Liz Bullock" {
   rate 160
 }
 resource dev1 "Paul Smith" {
-  email "hhhh@unizar.es"
+  email "hhh@unizar.es"
 }
 resource dev2 "Samantha Müller" {
   email "jjj@unizar.es"
