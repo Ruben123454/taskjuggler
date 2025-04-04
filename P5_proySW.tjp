@@ -425,5 +425,4 @@ taskreport initialPlan "Initial Project Plan" {
   loadunit days
   hideresource @all
   balance cost rev
-  caption 'This report shows the initial project plan as defined in the baseline scenario.'
 }
