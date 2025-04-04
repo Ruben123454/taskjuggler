@@ -312,7 +312,7 @@ textreport frame "" {
   textreport "InitialPlan" {
     formats html
     title "Initial Plan"
-    center '<[report id="InitalPlan"]>'
+    center '<[report id="InitialPlan"]>'
   }
 }
 
@@ -414,3 +414,5 @@ resourcereport resourceGraph "" {
   hidetask ~(isleaf() & isleaf_())
   sorttasks plan.start.up
 }
+
+
