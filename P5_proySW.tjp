@@ -309,6 +309,11 @@ textreport frame "" {
     title "Resource Graph"
     center '<[report id="resourceGraph"]>'
   }
+  textreport "InitialPlan" {
+    formats html
+    title "Initial Plan"
+    center '<[report id="InitalPlan"]>'
+  }
 }
 
 # A traditional Gantt chart with a project overview.
@@ -408,10 +413,4 @@ resourcereport resourceGraph "" {
   # We only like to show leaf tasks for leaf resources.
   hidetask ~(isleaf() & isleaf_())
   sorttasks plan.start.up
-}
-
-textreport "InitalPlan" {
-  formats html
-  title "Initial Plan"
-  center '<[report id="initialPlan"]>'
 }
