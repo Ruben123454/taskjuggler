@@ -415,4 +415,15 @@ resourcereport resourceGraph "" {
   sorttasks plan.start.up
 }
 
-
+taskreport initialPlan "Initial Project Plan" {
+  scenarios plan
+  headline "Initial Project Plan"
+  columns bsi { title 'WBS' },
+          name, start, end, effort, cost,
+          revenue, chart { ${TaskTip} }
+  timeformat "%a %Y-%m-%d"
+  loadunit days
+  hideresource @all
+  balance cost rev
+  caption 'This report shows the initial project plan as defined in the baseline scenario.'
+}
