@@ -218,7 +218,7 @@ task WMGame "Web & Mobile Game" {
     task tFEt "Mobile Front End Test" {
       effort 6d
       allocate dev2, dev3
-      depends WMGame.tmFront.tFEi
+      depends WMGame.tmFront.tFEc
     }
   }
 
