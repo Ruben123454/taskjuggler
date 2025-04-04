@@ -72,7 +72,7 @@ resource dev4 "Rubén Mir" {
   email "869039@unizar.es"
   rate 140
   # Dedicación de 4 horas al día
-  limit { dailymin 4h }
+  limits { dailymin 4h }
 }
 
 # Now we specify the work packages. The whole project is described as
