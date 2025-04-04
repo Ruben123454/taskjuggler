@@ -197,7 +197,7 @@ task WMGame "Web & Mobile Game" {
 
   task tmFront "Mobile Front End" {
     purge chargeset
-    chargest mFront
+    chargeset mFront
     responsible dev1
     depends WMGame.tback.tBEd
     task tGUId "Mobile GUI Design" {
