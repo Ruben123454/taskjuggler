@@ -19,7 +19,7 @@ project pSix "Web Game"  2024-12-15 +5m {
   # the project reports. If not specified, the current day will be
   # used, but this will likely be outside of the project range, so it
   # can't be seen in the reports.
-  now 2025-02-25-13:00
+  now 2025-04-04-16:00
   # The currency for all money values is the US Dollar.
   currency "EUR"
 
@@ -58,7 +58,7 @@ resource boss "Liz Bullock" {
   rate 160
 }
 resource dev1 "Paul Smith" {
-  email "hhh@unizar.es"
+  email "hhhh@unizar.es"
 }
 resource dev2 "Samantha Müller" {
   email "jjj@unizar.es"
@@ -67,6 +67,12 @@ resource dev2 "Samantha Müller" {
 }
 resource dev3 "Peter Green" {
   email "kkk@unizar.es"
+}
+resource dev4 "Rubén Mir" {
+  email "869039@unizar.es"
+  rate 140
+  # Dedicación de 4 horas al día
+  limit { dailymin 4h }
 }
 
 # Now we specify the work packages. The whole project is described as
@@ -105,7 +111,7 @@ task WMGame "Web & Mobile Game" {
     task tlogic "Game logic" {
       effort 12d
       actual:effort 11d
-      allocate dev1, dev2
+      allocate dev1, dev2, dev4
       depends WMGame.tback.tBEd
       journalentry 2025-02-01 "Game logic completed before deadline" {
         author boss
@@ -129,7 +135,7 @@ task WMGame "Web & Mobile Game" {
       effort 9d
       actual:effort 15d
       allocate dev3
-      journalentry 2025-01-15 "Problems with the GUI design tool" {
+      journalentry 2025-04-04 "Problems with the GUI design tool" {
         author dev3
         alert yellow
         summary "The tool used for the GUI design has given me a lot of problems. I recommend to look for other one."
@@ -142,19 +148,24 @@ task WMGame "Web & Mobile Game" {
     }
     task tFEt "Web Front End Test" {
       effort 6d
-      allocate dev1
+      allocate dev1, dev4
       depends WMGame.twebF.tFEc
     }    
+
   }
 
   task ttest "Acceptance tests" {
-      effort 10d
-      allocate boss
-      allocate dev2
-      actual:effort 20d
-      depends WMGame.twebF
-      depends WMGame.tback
-      }
+    effort 10d
+    allocate boss
+    allocate dev2, dev4
+    actual:effort 20d
+    depends WMGame.twebF
+    depends WMGame.tback
+    depends WMGame.tmFront
+    depends WMGame.tcDep
+    # Inicio de las pruebas de aceptación para que sea, como pronto, el 15 de mayo.
+    start 2025-05-15
+  }
 
     
   task deliveries "Milestones" {
@@ -180,6 +191,50 @@ task WMGame "Web & Mobile Game" {
     task done "Ship Product to Customer" {
       depends WMGame.ttest
       charge 12000.0 onstart
+    }
+  }
+
+
+  task tmFront "Mobile Front End" {
+    purge chargeset
+    chargest mFront
+    responsible dev1
+    depends WMGame.tback.tBEd
+    task tGUId "Mobile GUI Design" {
+      effort 9d
+      actual:effort 15d
+      allocate dev2
+      journalentry 2025-01-15 "Problems with the GUI design tool" {
+        author dev1
+        alert yellow
+        summary "The tool used for the GUI design has given me a lot of problems. I recommend to look for other one."
+      }
+    }
+    task tFEc "Mobile Front End Construction" {
+      effort 15d
+      allocate dev1, dev4
+      depends WMGame.tmFront.tGUId
+    }
+    task tFEt "Mobile Front End Test" {
+      effort 6d
+      allocate dev2, dev3
+      depends WMGame.tmFront.tFEi
+    }
+  }
+
+  task tcDep "Cloud Deployment" {
+    chargest back
+    responsible dev3
+    depends WMGame.tback.tBEd
+    task tDep "Cloud Deployment" {
+      effort 5d
+      allocate dev3
+      depends WMGame.tback.tBEd
+    }
+    task tDepTest "Cloud Deployment Test" {
+      effort 5d
+      allocate dev1, dev4
+      depends WMGame.tback.tBEd
     }
   }
 }
@@ -351,4 +406,10 @@ resourcereport resourceGraph "" {
   # We only like to show leaf tasks for leaf resources.
   hidetask ~(isleaf() & isleaf_())
   sorttasks plan.start.up
+}
+
+textreport "InitalPlan" {
+  formats html
+  title "Initial Plan"
+  center '<[report id="initialPlan"]>'
 }
